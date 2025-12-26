@@ -5,6 +5,8 @@ import com.Learning.BloodDonationAndRequestPortal.entity.Donor;
 import com.Learning.BloodDonationAndRequestPortal.service.DonorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +19,12 @@ public class DonorController {
     private final DonorService donorService;
 
     @PostMapping("/register")
-    public Donor registerDonor(@RequestBody DonorDTO donorDTO) {
-        return donorService.registerDonor(donorDTO);
+    public ResponseEntity<Donor> registerDonor(
+            @RequestBody DonorDTO donorDTO) {
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(donorService.registerDonor(donorDTO));
     }
 
     @GetMapping
@@ -27,8 +33,11 @@ public class DonorController {
     }
 
     @GetMapping("/search")
-    public List<Donor> searchDonors(@RequestParam String bloodType,
-                                    @RequestParam String city) {
+    public List<Donor> searchDonors(
+            @RequestParam String bloodType,
+            @RequestParam String city) {
+
         return donorService.searchDonors(bloodType, city);
     }
+
 }

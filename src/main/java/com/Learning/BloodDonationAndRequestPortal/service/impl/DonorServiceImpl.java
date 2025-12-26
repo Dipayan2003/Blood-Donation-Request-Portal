@@ -34,6 +34,11 @@ public class DonorServiceImpl implements DonorService {
 
     @Override
     public List<Donor> searchDonors(String bloodType, String city) {
-        return donorRepository.findByBloodTypeAndCity(bloodType, city);
+        return donorRepository
+                .findByBloodTypeIgnoreCaseAndCityIgnoreCase(
+                        bloodType.trim(),
+                        city.trim()
+                );
     }
+
 }

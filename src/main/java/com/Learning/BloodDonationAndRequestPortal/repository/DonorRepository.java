@@ -9,4 +9,10 @@ import java.util.List;
 @Repository
 public interface DonorRepository extends JpaRepository<Donor, Long> {
     List<Donor> findByBloodTypeAndCity(String bloodType, String city);
+    List<Donor> findByBloodTypeIgnoreCaseAndCityIgnoreCase(
+            String bloodType,
+            String city
+    );
+
+
 }
